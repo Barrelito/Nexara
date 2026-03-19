@@ -246,9 +246,25 @@
   .footer-links a:hover { color: var(--gold); }
   @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  /* HAMBURGER */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.4rem; background: none; border: none; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); transition: all 0.3s; transform-origin: center; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; background: var(--paper);
+    z-index: 150; flex-direction: column; justify-content: center; align-items: center;
+    gap: 2.5rem; padding: 2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 1.4rem; font-family: 'Playfair Display', serif; color: var(--ink); text-decoration: none; font-weight: 600; letter-spacing: -0.01em; }
+  .mobile-menu a.nav-cta { background: var(--accent); color: var(--paper); padding: 0.8rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; }
+
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     nav ul { display: none; }
+    .hamburger { display: flex; }
     .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
     .hero::after { display: none; }
     section { padding: 4rem 1.5rem; }
@@ -257,6 +273,17 @@
     .contact-grid, .pricing-grid, .pricing-intro, .referenser-grid { grid-template-columns: 1fr; }
     .case-visual { min-height: 280px; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
+    /* Fix inline 3-col pricing factors grid */
+    .pricing-factors { grid-template-columns: 1fr !important; }
+    /* Fix horizontal step line on vertical layout */
+    .how-steps::before { display: none; }
+    /* Fix om-mig photo height */
+    .om-mig-foto-inner { aspect-ratio: 4/3; }
+    /* Fix ROI-box */
+    .roi-box { flex-direction: column !important; text-align: center; }
+    /* Increase small labels to readable size */
+    .section-label, .hero-label, .form-label, .contact-item-label,
+    .pricing-from, .pricing-name, .case-problem-label { font-size: 0.8rem !important; }
   }
 </style>
 </head>
@@ -270,7 +297,17 @@
     <li><a href="#priser">Priser</a></li>
     <li><a href="#kontakt" class="nav-cta">Boka samtal</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Meny">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#om" class="mobile-link">Om oss</a>
+  <a href="#tjanster" class="mobile-link">Tjänster</a>
+  <a href="#hur" class="mobile-link">Hur det fungerar</a>
+  <a href="#priser" class="mobile-link">Priser</a>
+  <a href="#kontakt" class="nav-cta mobile-link">Boka samtal</a>
+</div>
 <!-- HERO -->
 <section class="hero">
   <div>
@@ -325,7 +362,7 @@
   </div>
   <div class="about-text" style="margin-top:4rem;max-width:640px;">
     <p>De flesta AI-byråer säljer teknik. Vi säljer <strong>resultat</strong>. Det spelar ingen roll om du förstår vad ett "LLM" är — det enda som spelar roll är om du tjänar mer pengar eller sparar tid.</p>
-    <p>Vi riktar oss till dig som driver ett litet företag, kanske ensam eller med ett fåtal anställda. Du har inte tid, budget eller intresse av att bli teknikkonsult. Det är där vi kommer in.</p>
+    <p>Vi riktar oss till dig som driver ett litet företag, kanske ensam eller med ett fåtal anställda. Du har inte tid, budget eller intresse av att bli teknikkonsult. <strong>Vi har varit i dina skor</strong> — och vet exakt vilka problem som går att lösa smartare.</p>
   </div>
 </section>
 <!-- OM MIG -->
@@ -342,8 +379,8 @@
     <div class="om-mig-text">
       <div class="om-mig-namn">[Ditt namn]</div>
       <div class="om-mig-titel">Grundare, Nexara</div>
-      <p>Jag startade Nexara för att jag sett samma mönster om och om igen: <strong>småföretagare som jobbar för hårt för lite</strong> — inte för att de saknar ambition, utan för att de saknar rätt verktyg.</p>
-      <p>Med bakgrund inom teknik och systemutveckling har jag byggt lösningar som faktiskt fungerar i verkligheten — inte i ett Powerpoint-däck. Jag tar aldrig ett uppdrag jag inte tror på och lovar aldrig mer än jag kan leverera.</p>
+      <p>Jag kommer inte från tech-världen — jag kommer från sjukvården. Och det är precis därför Nexara fungerar. Jag vet hur det känns att drunkna i administration, jobba i system som inte pratar med varandra, och förlora tid på saker som borde sköta sig själva.</p>
+      <p>Med den bakgrunden har jag byggt och implementerat system som faktiskt löser verkliga problem — <strong>styrledningssystem, personalsystem, plattformar för övervakning och boknings- och kundsystem</strong> — inte teknik för teknikens skull.</p>
       <p>Nexara är en ung byrå och det är jag öppen med. Det betyder att du som tidig kund får <strong>min fulla uppmärksamhet</strong> — inte en juniorkonsult.</p>
       <div class="garanti-badge">
         <div class="garanti-icon">🤝</div>
@@ -441,7 +478,7 @@
     </div>
   </div>
   <!-- Vad påverkar priset -->
-  <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--border); margin-bottom: 3rem;">
+  <div class="pricing-factors" style="display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--border); margin-bottom: 3rem;">
     <div style="background:var(--paper); padding:2rem;">
       <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:0.8rem;">Problemets komplexitet</div>
       <p style="font-size:0.88rem; color:var(--muted); line-height:1.6; font-weight:300;">Ett enkelt bokningssystem är en annan insats än ett fullständigt system för kundhantering, uppföljning och rapportering. Vi prissätter efter arbetet — inte efter ett godtyckligt paketnummer.</p>
@@ -514,7 +551,7 @@
     </div>
   </div>
   <!-- ROI-signal -->
-  <div style="margin-top:2rem; border:1px solid var(--border); padding:2rem; display:flex; align-items:center; gap:2rem; background:var(--light);">
+  <div class="roi-box" style="margin-top:2rem; border:1px solid var(--border); padding:2rem; display:flex; align-items:center; gap:2rem; background:var(--light);">
     <div style="font-size:2.5rem; flex-shrink:0;">🧮</div>
     <div>
       <div style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); margin-bottom:0.4rem;">Hur vi tänker kring pris</div>
@@ -553,5 +590,19 @@
     <a href="#">Villkor</a>
   </div>
 </footer>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>
