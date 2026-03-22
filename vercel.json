@@ -1,7 +1,13 @@
 {
   "outputDirectory": ".",
-  "routes": [
-    { "src": "/nexara-ai/(.*)", "dest": "https://nexara-ai-six.vercel.app/nexara-ai/$1" },
-    { "src": "/nexara-ai", "dest": "https://nexara-ai-six.vercel.app/nexara-ai" }
+  "rewrites": [
+    {
+      "source": "/nexara-ai",
+      "destination": "https://nexara-ai-six.vercel.app/nexara-ai"
+    },
+    {
+      "source": "/nexara-ai/(.*)",
+      "destination": "https://nexara-ai-six.vercel.app/nexara-ai/$1"
+    }
   ]
 }
