@@ -1,3 +1,6 @@
 {
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/nexara-ai/:path*", "destination": "https://nexara-ai-six.vercel.app/nexara-ai/:path*" }
+  ]
 }
