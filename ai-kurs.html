@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI på 6 veckor — Praktisk kurs för chefer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f0f0e;
+  --cream: #f5f0e8;
+  --warm: #e8e0d0;
+  --rust: #c0440a;
+  --gold: #c9961a;
+  --sage: #4a6741;
+  --slate: #3d4f5c;
+  --muted: #8a8075;
+  --white: #fdfaf5;
+  --green: #2d6a4f;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 60px;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  color: var(--cream); font-size: 1.05rem; letter-spacing: 0.02em;
+}
+.nav-logo span { color: var(--gold); font-style: italic; }
+.nav-cta {
+  background: var(--gold); color: var(--ink);
+  border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.5rem 1.2rem; border-radius: 2rem;
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--cream); }
+
+/* ─── HERO ─── */
+.hero {
+  padding-top: 60px;
+  display: flex; flex-direction: column;
+}
+.hero-bottom {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+.hero-left {
+  background: var(--ink);
+  padding: 3.5rem 4rem 4rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.hero-left::before {
+  content: '';
+  position: absolute; top: -20%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,150,26,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+}
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  color: var(--cream); line-height: 1.05; margin-bottom: 1.2rem;
+}
+.hero-title em { color: var(--gold); font-style: italic; display: block; }
+.hero-subtitle {
+  color: var(--muted); font-size: 1.05rem; line-height: 1.75;
+  max-width: 380px; margin-bottom: 2.5rem;
+}
+.hero-promise {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 1.5rem;
+  margin-bottom: 2.5rem; max-width: 380px;
+}
+.hero-promise-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem;
+}
+.hero-promise ul { list-style: none; }
+.hero-promise ul li {
+  font-size: 0.9rem; color: var(--cream); padding: 0.3rem 0;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.hero-promise ul li::before {
+  content: '✓'; color: var(--gold); font-weight: 600; font-size: 0.8rem;
+}
+.hero-meta {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+}
+.hero-meta-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem; color: var(--cream); line-height: 1;
+}
+.hero-meta-label {
+  font-size: 0.7rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin-top: 0.2rem;
+}
+
+.hero-right {
+  background: var(--warm);
+  padding: 3.5rem 3.5rem 4rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.signup-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem; color: var(--ink); margin-bottom: 0.5rem;
+}
+.signup-sub {
+  font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6;
+}
+.signup-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-label {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.form-input {
+  background: var(--white); border: 1.5px solid var(--warm);
+  border-radius: 4px; padding: 0.85rem 1rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  color: var(--ink); transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus { border-color: var(--rust); }
+.form-input::placeholder { color: var(--muted); }
+.btn-primary {
+  background: var(--rust); color: var(--white);
+  border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  padding: 1rem 1.5rem; border-radius: 4px;
+  transition: all 0.2s; margin-top: 0.5rem;
+  letter-spacing: 0.02em;
+}
+.btn-primary:hover { background: #a33a08; transform: translateY(-1px); }
+.signup-note {
+  font-size: 0.76rem; color: var(--muted); margin-top: 0.75rem;
+  line-height: 1.5; text-align: center;
+}
+
+.weeks-preview {
+  margin-top: 2rem; padding-top: 2rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+.weeks-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+}
+.week-row {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.55rem 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.85rem;
+}
+.week-row:last-child { border-bottom: none; }
+.week-num {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  color: var(--rust); font-size: 1.1rem; min-width: 1.5rem; opacity: 0.7;
+}
+.week-name { color: var(--ink); font-weight: 400; }
+.week-tool {
+  margin-left: auto; font-size: 0.72rem; color: var(--muted);
+  background: var(--warm); padding: 0.15rem 0.5rem; border-radius: 2rem;
+}
+
+/* ─── MODULES ─── */
+.section-intro {
+  background: var(--white);
+  padding: 5rem 0 3rem;
+  text-align: center;
+}
+.section-intro h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--ink); margin-bottom: 0.75rem;
+}
+.section-intro p {
+  color: var(--muted); font-size: 1rem; max-width: 520px; margin: 0 auto;
+  line-height: 1.7;
+}
+
+.module-nav-bar {
+  background: var(--white);
+  padding: 1rem 0 0;
+  border-bottom: 2px solid var(--warm);
+  position: sticky; top: 60px; z-index: 50;
+}
+.module-nav-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 3rem;
+  display: flex; gap: 0; overflow-x: auto;
+}
+.mod-tab {
+  background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 500;
+  color: var(--muted); padding: 0.75rem 1.3rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all 0.2s;
+  white-space: nowrap;
+}
+.mod-tab:hover { color: var(--ink); }
+.mod-tab.active { color: var(--rust); border-bottom-color: var(--rust); font-weight: 600; }
+
+.modules-wrapper { background: var(--white); }
+
+.module-section {
+  display: none; padding: 4rem 0 5rem;
+  animation: fadeUp 0.35s ease both;
+}
+.module-section.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+/* Module header */
+.mod-header {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 2.5rem; align-items: start; margin-bottom: 3.5rem;
+}
+.mod-num-big {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 9rem; line-height: 1; color: var(--rust); opacity: 0.12;
+  margin-top: -1.5rem; user-select: none;
+}
+.mod-week-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--rust);
+  background: rgba(192,68,10,0.08); border-radius: 2rem;
+  padding: 0.3rem 0.8rem; margin-bottom: 0.9rem;
+}
+.mod-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: var(--ink); line-height: 1.1; margin-bottom: 0.9rem;
+}
+.mod-desc {
+  color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 500px;
+}
+.mod-time {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem;
+}
+
+/* Steps */
+.steps-title {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem;
+}
+.steps-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+.step-card {
+  background: var(--cream); border-radius: 6px;
+  border: 1px solid var(--warm);
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 1.5rem; align-items: start; padding: 1.5rem;
+  transition: all 0.25s; cursor: default;
+}
+.step-card:hover { transform: translateX(6px); border-color: rgba(192,68,10,0.3); }
+.step-num-circle {
+  width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  background: var(--rust); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.82rem; font-weight: 600; flex-shrink: 0; margin-top: 0.1rem;
+}
+.step-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.35rem; }
+.step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+.step-tool {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.72rem; background: var(--warm);
+  padding: 0.2rem 0.6rem; border-radius: 2rem; margin-top: 0.5rem;
+  color: var(--slate); font-weight: 500;
+}
+
+/* Tools strip */
+.tools-strip {
+  background: var(--cream); border-radius: 6px;
+  border: 1px solid var(--warm); padding: 1.5rem 2rem;
+  display: flex; align-items: center; gap: 2rem;
+  flex-wrap: wrap; margin-bottom: 2rem;
+}
+.tools-strip-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+.tool-pill {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: var(--white); border: 1.5px solid var(--warm);
+  border-radius: 2rem; padding: 0.35rem 0.9rem;
+  font-size: 0.82rem; font-weight: 500; color: var(--ink);
+}
+.tool-pill span { font-size: 1rem; }
+
+/* Task box */
+.task-box {
+  background: linear-gradient(135deg, var(--sage) 0%, #1e3d28 100%);
+  color: var(--cream); border-radius: 8px; padding: 2.5rem;
+  margin-top: 2rem;
+}
+.task-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem;
+}
+.task-title {
+  font-family: 'DM Serif Display', serif; font-size: 1.6rem;
+  margin-bottom: 1.2rem; line-height: 1.2;
+}
+.task-steps { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.task-steps li {
+  display: flex; gap: 1rem; font-size: 0.9rem; line-height: 1.5;
+  align-items: flex-start;
+}
+.task-step-num {
+  background: rgba(255,255,255,0.15); border-radius: 50%;
+  width: 1.6rem; height: 1.6rem; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 600; flex-shrink: 0; margin-top: 0.1rem;
+}
+.task-result {
+  margin-top: 1.5rem; padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.88rem; color: rgba(255,255,255,0.7);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.task-result strong { color: var(--white); }
+
+/* Tip box */
+.tip-box {
+  background: var(--ink); color: var(--cream);
+  border-radius: 6px; padding: 2rem 2.5rem;
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 1.5rem; align-items: center; margin-bottom: 2rem;
+}
+.tip-icon { font-size: 2.5rem; }
+.tip-label {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;
+}
+.tip-text {
+  font-family: 'DM Serif Display', serif; font-size: 1.2rem; line-height: 1.5;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); color: var(--muted);
+  padding: 4rem 3rem 3rem;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: end; gap: 3rem;
+}
+.footer-brand {
+  font-family: 'DM Serif Display', serif;
+  color: var(--cream); font-size: 1.3rem; margin-bottom: 0.5rem;
+}
+.footer-brand span { color: var(--gold); font-style: italic; }
+.footer-tagline { font-size: 0.85rem; line-height: 1.6; max-width: 340px; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 2.5rem; padding-top: 1.5rem;
+  font-size: 0.75rem; text-align: center;
+}
+
+/* ─── SECURITY WARNING ─── */
+.security-reminder {
+  background: #fff8ed; border: 1.5px solid #f0c050;
+  border-radius: 6px; padding: 1rem 1.4rem;
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.security-reminder-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.05rem; }
+.security-reminder-text { font-size: 0.85rem; line-height: 1.6; color: #6b4e00; }
+.security-reminder-text strong { color: #4a3500; }
+.security-reminder-text a { color: #c0440a; text-decoration: underline; cursor: pointer; }
+
+/* ─── MAIL CTA STRIP ─── */
+.mail-cta-strip {
+  background: var(--rust);
+  padding: 1rem 3rem;
+}
+.mail-cta-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap;
+}
+.mail-cta-text {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.9rem; color: rgba(255,255,255,0.9);
+}
+.mail-cta-text strong { color: var(--white); }
+.mail-cta-icon { font-size: 1.2rem; flex-shrink: 0; }
+.mail-cta-btn {
+  background: var(--white); color: var(--rust);
+  border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem; font-weight: 600;
+  padding: 0.55rem 1.2rem; border-radius: 2rem;
+  white-space: nowrap; transition: all 0.2s; letter-spacing: 0.02em;
+}
+.mail-cta-btn:hover { background: var(--cream); }
+
+/* ─── SIGNUP SUCCESS ─── */
+.signup-success {
+  display: none;
+  background: var(--white); border-radius: 6px;
+  padding: 2rem; text-align: center;
+  border: 1.5px solid rgba(74,103,65,0.3);
+}
+.signup-success.show { display: block; }
+.signup-form.hide { display: none; }
+.success-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+.success-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem; margin-bottom: 0.5rem;
+}
+.success-body { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero-bottom { grid-template-columns: 1fr; }
+  .hero-left { min-height: auto; padding: 3rem 1.5rem 2.5rem; }
+  .hero-right { padding: 2.5rem 1.5rem; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .container { padding: 0 1.5rem; }
+  .mod-header { grid-template-columns: 1fr; }
+  .mod-num-big { display: none; }
+  .module-nav-inner { padding: 0 1.5rem; }
+  .tools-strip { gap: 1rem; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AI för <span>Chefer</span></div>
+  <button class="nav-cta" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+    Starta kursen →
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bottom">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Självstudiekurs · 6 veckor · Helt gratis</div>
+      <h1 class="hero-title">
+        AI i din<br>
+        <em>vardag</em>
+        som chef
+      </h1>
+      <p class="hero-subtitle">
+        En praktisk veckokurs för dig som vill spara tid med AI — utan att vara teknisk. En lektion och en uppgift i veckan, direkt i din inkorg.
+      </p>
+      <div class="hero-promise">
+        <div class="hero-promise-label">Det här klarar du efter kursen</div>
+        <ul>
+          <li>Renskriva och förbättra text på sekunder</li>
+          <li>Transkribera möten automatiskt</li>
+          <li>Göra presentationer med AI-stöd</li>
+          <li>Sammanfatta långa dokument direkt</li>
+          <li>Skriva bättre mail på halva tiden</li>
+          <li>Använda Copilot, ChatGPT och Gemini</li>
+        </ul>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-num">6</div>
+          <div class="hero-meta-label">Veckor</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-num">20</div>
+          <div class="hero-meta-label">Min / vecka</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-num">100%</div>
+          <div class="hero-meta-label">Praktiskt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right" id="signup">
+      <div class="signup-title">Få kursen i din inkorg</div>
+      <p class="signup-sub">Allt innehåll är fritt att läsa här — men anmäler du dig får du varje vecka ett mail med <strong>uppgiften</strong>, en <strong>påminnelse</strong> och ett <strong>konkret tips</strong> du kan använda direkt på jobbet.</p>
+
+      <div class="signup-form" id="signupForm">
+        <div class="form-group">
+          <label class="form-label" for="fname">Förnamn</label>
+          <input class="form-input" type="text" id="fname" placeholder="Anna" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">E-postadress</label>
+          <input class="form-input" type="email" id="email" placeholder="anna@foretag.se" autocomplete="email">
+        </div>
+        <button class="btn-primary" onclick="handleSignup()">
+          Ja tack, skicka mig kursen →
+        </button>
+        <p class="signup-note">Gratis. Ett mail i veckan. Avregistrera dig när du vill.</p>
+      </div>
+
+      <div class="signup-success" id="signupSuccess">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">Välkommen ombord!</div>
+        <p class="success-body">Kolla din inkorg — Vecka 1 är på väg till dig nu. Håll utkik i spam-mappen om den inte dyker upp.</p>
+      </div>
+
+      <div class="weeks-preview">
+        <div class="weeks-label">Kursöversikt</div>
+        <div class="week-row"><span class="week-num">1</span><span class="week-name">Skriv bättre text på halva tiden</span><span class="week-tool">ChatGPT</span></div>
+        <div class="week-row"><span class="week-num">2</span><span class="week-name">Transkribera möten automatiskt</span><span class="week-tool">Copilot</span></div>
+        <div class="week-row"><span class="week-num">3</span><span class="week-name">Skapa presentationer med AI</span><span class="week-tool">Gemini</span></div>
+        <div class="week-row"><span class="week-num">4</span><span class="week-name">Sammanfatta och analysera dokument</span><span class="week-tool">NotebookLM</span></div>
+        <div class="week-row"><span class="week-num">5</span><span class="week-name">Effektivare mail och kommunikation</span><span class="week-tool">Copilot</span></div>
+        <div class="week-row"><span class="week-num">6</span><span class="week-name">Bygg din egen AI-rutin</span><span class="week-tool">Alla verktyg</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE NAV -->
+<div class="section-intro">
+  <h2>Vad du lär dig, vecka för vecka</h2>
+  <p>Varje vecka innehåller en kort genomgång och en konkret uppgift du kan göra på jobbet direkt. Ingen teknikbakgrund krävs.</p>
+</div>
+
+<div class="mail-cta-strip">
+  <div class="mail-cta-inner">
+    <div class="mail-cta-text">
+      <span class="mail-cta-icon">📬</span>
+      <span>Allt innehåll är öppet — men vill du ha <strong>veckouppdrag och påminnelser i inkorgen?</strong></span>
+    </div>
+    <button class="mail-cta-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Anmäl dig gratis →</button>
+  </div>
+</div>
+
+<div class="module-nav-bar" id="modules">
+  <div class="module-nav-inner">
+    <button class="mod-tab active" onclick="showModule(0)">⚠️ Innan du börjar</button>
+    <button class="mod-tab" onclick="showModule(1)">Vecka 1 · Text</button>
+    <button class="mod-tab" onclick="showModule(2)">Vecka 2 · Möten</button>
+    <button class="mod-tab" onclick="showModule(3)">Vecka 3 · Presentationer</button>
+    <button class="mod-tab" onclick="showModule(4)">Vecka 4 · Dokument</button>
+    <button class="mod-tab" onclick="showModule(5)">Vecka 5 · Mail</button>
+    <button class="mod-tab" onclick="showModule(6)">Vecka 6 · Din rutin</button>
+  </div>
+</div>
+
+<div class="modules-wrapper">
+
+  <!-- VECKA 0 — INNAN DU BÖRJAR -->
+  <div class="module-section active" id="mod-0">
+    <div class="container">
+      <div class="mod-header">
+        <div class="mod-num-big">0</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">🔒 Innan du börjar</div>
+          <h2 class="mod-title">Vad du aldrig ska<br>skicka till en AI</h2>
+          <p class="mod-desc">Innan du börjar använda AI på jobbet finns det ett fåtal enkla regler du behöver känna till. Det tar 10 minuter att läsa — och kan spara dig stora problem.</p>
+          <div class="mod-time">⏱ Ca 10 minuter · Läs detta först</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">🔒</div>
+        <div>
+          <div class="tip-label">Grundregeln</div>
+          <div class="tip-text">"Skriv aldrig in något i en AI-tjänst som du inte skulle kunna klistra in i ett öppet mejl till en okänd person."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Det här ska du ALDRIG skicka in</div>
+      <div class="steps-list">
+        <div class="step-card" style="border-left: 3px solid #c0440a;">
+          <div class="step-num-circle" style="background: #c0440a;">✕</div>
+          <div class="step-content">
+            <div class="step-title">Personuppgifter om medarbetare eller kunder</div>
+            <div class="step-body">Namn, personnummer, adresser, löner, hälsouppgifter, kontaktuppgifter eller annan information som kan kopplas till en specifik person. Detta gäller oavsett om det gäller anställda, kunder eller andra.</div>
+            <div class="step-tool"><span>⚖️</span> GDPR-risk — kan ge böter</div>
+          </div>
+        </div>
+        <div class="step-card" style="border-left: 3px solid #c0440a;">
+          <div class="step-num-circle" style="background: #c0440a;">✕</div>
+          <div class="step-content">
+            <div class="step-title">Konfidentiell affärsinformation</div>
+            <div class="step-body">Affärsstrategier, prissättning, kundavtal, offerter, interna budgetar, uppköpsplaner eller annan information som är hemlig för din organisation.</div>
+            <div class="step-tool"><span>🔐</span> Sekretessrisk</div>
+          </div>
+        </div>
+        <div class="step-card" style="border-left: 3px solid #c0440a;">
+          <div class="step-num-circle" style="background: #c0440a;">✕</div>
+          <div class="step-content">
+            <div class="step-title">Lösenord, inloggningar och säkerhetskoder</div>
+            <div class="step-body">Aldrig. Oavsett anledning. Inga undantag.</div>
+          </div>
+        </div>
+        <div class="step-card" style="border-left: 3px solid #c0440a;">
+          <div class="step-num-circle" style="background: #c0440a;">✕</div>
+          <div class="step-content">
+            <div class="step-title">Känsliga personärenden</div>
+            <div class="step-body">Sjukdomsfall, rehabiliteringsärenden, disciplinärenden, konflikter på arbetsplatsen eller annan information om enskilda personers situation.</div>
+            <div class="step-tool"><span>👤</span> Integritetskänsligt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps-title" style="margin-top: 2.5rem;">Det här kan du använda AI till — med enkla knep</div>
+      <div class="steps-list">
+        <div class="step-card" style="border-left: 3px solid var(--sage);">
+          <div class="step-num-circle" style="background: var(--sage);">✓</div>
+          <div class="step-content">
+            <div class="step-title">Anonymisera innan du klistrar in</div>
+            <div class="step-body">Byt ut namn mot "Medarbetare A", "Kund X" eller "Personen". Ta bort alla siffror som personnummer eller kundnummer. Då kan du ofta använda texten utan problem.</div>
+            <div class="step-tool"><span>✏️</span> Enkelt knep som funkar</div>
+          </div>
+        </div>
+        <div class="step-card" style="border-left: 3px solid var(--sage);">
+          <div class="step-num-circle" style="background: var(--sage);">✓</div>
+          <div class="step-content">
+            <div class="step-title">Beskriv situationen istället för att klistra in dokumentet</div>
+            <div class="step-body">Istället för att klistra in ett konfidentiellt protokoll, beskriv situationen med egna ord: "Jag behöver skriva ett mail om att ett projekt försenas med en månad." Ingen känslig data — samma hjälp.</div>
+          </div>
+        </div>
+        <div class="step-card" style="border-left: 3px solid var(--sage);">
+          <div class="step-num-circle" style="background: var(--sage);">✓</div>
+          <div class="step-content">
+            <div class="step-title">Kolla om din organisation har en AI-policy</div>
+            <div class="step-body">Många organisationer har börjat ta fram riktlinjer för AI-användning. Fråga din IT-avdelning eller HR om det finns en policy — och följ den. Microsoft Copilot via er organisations licens är ofta säkrare än publika tjänster.</div>
+            <div class="step-tool"><span>🏢</span> Fråga IT eller HR</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-box" style="background: linear-gradient(135deg, #3d2a00 0%, #1a1200 100%);">
+        <div class="task-label">Kom ihåg — tumregeln</div>
+        <div class="task-title">Tre frågor innan du klistrar in</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span><strong>Innehåller texten namn eller uppgifter om en verklig person?</strong> → Anonymisera först.</li>
+          <li><span class="task-step-num">2</span><strong>Är informationen konfidentiell för organisationen?</strong> → Beskriv med egna ord istället.</li>
+          <li><span class="task-step-num">3</span><strong>Skulle du vara bekväm om din chef såg vad du klistrade in?</strong> → Om nej, låt bli.</li>
+        </ul>
+        <div class="task-result">✅ <strong>Redo?</strong> Gå vidare till Vecka 1 — nu kan du använda AI tryggt och smart.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECKA 1 -->
+  <div class="module-section" id="mod-1">
+    <div class="container">
+      <div class="security-reminder">
+        <div class="security-reminder-icon">⚠️</div>
+        <div class="security-reminder-text"><strong>Påminnelse:</strong> Klistra bara in text som inte innehåller personuppgifter eller konfidentiell information. Osäker? <a onclick="showModule(0)">Läs reglerna i "Innan du börjar".</a></div>
+      </div>
+      <div class="mod-header">
+        <div class="mod-num-big">1</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">📅 Vecka 1</div>
+          <h2 class="mod-title">Skriv bättre text<br>på halva tiden</h2>
+          <p class="mod-desc">Du lär dig använda ChatGPT som din personliga skrivassistent — för rapporter, mötesagendor, anteckningar och allt annat du skriver i jobbet.</p>
+          <div class="mod-time">⏱ Ca 20 minuter</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div>
+          <div class="tip-label">Veckans insikt</div>
+          <div class="tip-text">"AI skriver inte åt dig — den skriver med dig. Du bestämmer vad som ska sägas, AI hjälper dig att säga det tydligare."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Steg för steg — gör detta nu</div>
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num-circle">1</div>
+          <div class="step-content">
+            <div class="step-title">Gå till ChatGPT eller Claude</div>
+            <div class="step-body">Öppna chat.openai.com eller claude.ai i din webbläsare. Skapa ett gratis konto om du inte har ett. Det tar 2 minuter.</div>
+            <div class="step-tool"><span>🔗</span> chat.openai.com eller claude.ai</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">2</div>
+          <div class="step-content">
+            <div class="step-title">Klistra in en text du skrivit</div>
+            <div class="step-body">Ta ett mail, ett PM eller en rapport du nyligen skrivit. Klistra in den i chatten och skriv: <em>"Kan du göra den här texten kortare och tydligare, utan att ändra budskapet?"</em></div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">3</div>
+          <div class="step-content">
+            <div class="step-title">Jämför resultatet</div>
+            <div class="step-body">Läs AI:ns version. Vad ändrades? Vad är bättre? Vad vill du ha tillbaka? Det är du som bestämmer — AI:n är bara ett förslag.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">4</div>
+          <div class="step-content">
+            <div class="step-title">Prova en ny text från grunden</div>
+            <div class="step-body">Skriv: <em>"Hjälp mig skriva en kort mötesagenda för [beskriv mötet]."</em> Fyll i med ett riktigt möte du har den här veckan.</div>
+            <div class="step-tool"><span>✏️</span> Praktisk övning</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-strip">
+        <div class="tools-strip-label">Verktyg den här veckan</div>
+        <div class="tool-pill"><span>🤖</span> ChatGPT (gratis)</div>
+        <div class="tool-pill"><span>🧠</span> Claude (gratis)</div>
+        <div class="tool-pill"><span>🖥️</span> Microsoft Copilot</div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-label">Veckans uppgift — skickas per mail</div>
+        <div class="task-title">Renskriva ett riktigt dokument</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span>Välj ett dokument eller text från din senaste arbetsvecka.</li>
+          <li><span class="task-step-num">2</span>Låt ChatGPT eller Claude renskriva och förbättra den.</li>
+          <li><span class="task-step-num">3</span>Använd den förbättrade versionen på riktigt — skicka den till någon.</li>
+        </ul>
+        <div class="task-result">⏱ <strong>Tidsmål:</strong> Klart på under 15 minuter.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECKA 2 -->
+  <div class="module-section" id="mod-2">
+    <div class="container">
+      <div class="security-reminder">
+        <div class="security-reminder-icon">⚠️</div>
+        <div class="security-reminder-text"><strong>Extra viktigt den här veckan:</strong> Inspelning av möten kräver att alla deltagare informeras och godkänner det. Klistra inte in transkript som namnger personer i publika AI-tjänster — anonymisera eller använd Copilot via er organisations licens. <a onclick="showModule(0)">Läs mer i "Innan du börjar".</a></div>
+      </div>
+      <div class="mod-header">
+        <div class="mod-num-big">2</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">📅 Vecka 2</div>
+          <h2 class="mod-title">Transkribera möten<br>automatiskt</h2>
+          <p class="mod-desc">Sluta anteckna för hand. Du lär dig spela in och transkribera möten så att du kan vara helt närvarande — och ändå ha allt dokumenterat efteråt.</p>
+          <div class="mod-time">⏱ Ca 20 minuter</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">🎙️</div>
+        <div>
+          <div class="tip-label">Veckans insikt</div>
+          <div class="tip-text">"Den som antecknar missar hälften av mötet. Låt AI anteckna — och var där du behöver vara: i samtalet."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Steg för steg — gör detta nu</div>
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num-circle">1</div>
+          <div class="step-content">
+            <div class="step-title">Aktivera transkribering i Teams eller Zoom</div>
+            <div class="step-body">Om du använder Microsoft Teams: Klicka på "..." under ett möte och välj "Starta transkription". Det kräver Microsoft 365-licens. Funkar direkt — ingen installation.</div>
+            <div class="step-tool"><span>💼</span> Microsoft Teams / Copilot</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">2</div>
+          <div class="step-content">
+            <div class="step-title">Testa med en inspelning</div>
+            <div class="step-body">Spela in 2–3 minuter av dig själv när du pratar om något från jobbet. Ladda upp till Otter.ai (gratis) eller använd Whisper via web. Se hur bra transkriptionen blir.</div>
+            <div class="step-tool"><span>🔗</span> otter.ai (gratis konto)</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">3</div>
+          <div class="step-content">
+            <div class="step-title">Be AI sammanfatta transkriptet</div>
+            <div class="step-body">Klistra in transkriptet i ChatGPT och skriv: <em>"Sammanfatta detta i tre punkter: beslut, åtgärdspunkter och vem som ansvarar för vad."</em></div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">4</div>
+          <div class="step-content">
+            <div class="step-title">Skicka sammanfattningen till deltagarna</div>
+            <div class="step-body">Använd AI-sammanfattningen som mötesprotokoll. Granska den snabbt — och skicka sedan direkt. Klart på 5 minuter istället för 45.</div>
+            <div class="step-tool"><span>✅</span> Spara 40 min per möte</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-strip">
+        <div class="tools-strip-label">Verktyg den här veckan</div>
+        <div class="tool-pill"><span>🎙️</span> Otter.ai (gratis)</div>
+        <div class="tool-pill"><span>💼</span> Microsoft Copilot</div>
+        <div class="tool-pill"><span>🤖</span> ChatGPT (sammanfatta)</div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-label">Veckans uppgift — skickas per mail</div>
+        <div class="task-title">Transkribera ett riktigt möte</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span>Välj ett möte den här veckan — starta transkribering eller spela in det.</li>
+          <li><span class="task-step-num">2</span>Be AI sammanfatta: beslut, åtgärder, ansvariga.</li>
+          <li><span class="task-step-num">3</span>Skicka sammanfattningen till mötesdeltagarna som protokoll.</li>
+        </ul>
+        <div class="task-result">🎯 <strong>Mål:</strong> Ett riktigt protokoll utan att du skrivit en enda rad för hand.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECKA 3 -->
+  <div class="module-section" id="mod-3">
+    <div class="container">
+      <div class="security-reminder">
+        <div class="security-reminder-icon">⚠️</div>
+        <div class="security-reminder-text"><strong>Påminnelse:</strong> Beskriv presentationens syfte med egna ord — klistra inte in konfidentiella dokument eller kunduppgifter. <a onclick="showModule(0)">Läs reglerna.</a></div>
+      </div>
+      <div class="mod-header">
+        <div class="mod-num-big">3</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">📅 Vecka 3</div>
+          <h2 class="mod-title">Skapa presentationer<br>med AI-stöd</h2>
+          <p class="mod-desc">Du lär dig ta ett befintligt dokument eller några stödord — och låta AI skapa en presentation åt dig. Sedan justerar du innehållet och är klar.</p>
+          <div class="mod-time">⏱ Ca 25 minuter</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">🖼️</div>
+        <div>
+          <div class="tip-label">Veckans insikt</div>
+          <div class="tip-text">"En bra presentation börjar med ett tydligt budskap — inte med slides. Låt AI hantera strukturen, du fokuserar på innehållet."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Steg för steg — gör detta nu</div>
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num-circle">1</div>
+          <div class="step-content">
+            <div class="step-title">Be AI skapa en disposition</div>
+            <div class="step-body">Skriv i ChatGPT eller Claude: <em>"Jag behöver en PowerPoint-presentation om [ämne]. Skapa en disposition med 6–8 slides och punkter för varje slide."</em></div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">2</div>
+          <div class="step-content">
+            <div class="step-title">Använd Copilot direkt i PowerPoint</div>
+            <div class="step-body">Om du har Microsoft 365: Öppna PowerPoint → klicka på Copilot-ikonen → skriv vad presentationen ska handla om. Copilot skapar slides med innehåll direkt.</div>
+            <div class="step-tool"><span>💼</span> Kräver Microsoft 365</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">3</div>
+          <div class="step-content">
+            <div class="step-title">Prova Gemini + Google Slides</div>
+            <div class="step-body">Gå till gemini.google.com, beskriv din presentation. Gemini kan hjälpa till med text till varje slide. Fungerar även om du inte har Microsoft 365.</div>
+            <div class="step-tool"><span>🔗</span> gemini.google.com (gratis)</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">4</div>
+          <div class="step-content">
+            <div class="step-title">Granska och personalisera</div>
+            <div class="step-body">AI:n ger dig ett skelett — du lägger till din röst, dina exempel och anpassar till din målgrupp. Det är fortfarande din presentation.</div>
+            <div class="step-tool"><span>✏️</span> Spara 1–2 timmar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-strip">
+        <div class="tools-strip-label">Verktyg den här veckan</div>
+        <div class="tool-pill"><span>💼</span> Copilot i PowerPoint</div>
+        <div class="tool-pill"><span>🌟</span> Gemini (gratis)</div>
+        <div class="tool-pill"><span>🤖</span> ChatGPT (disposition)</div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-label">Veckans uppgift — skickas per mail</div>
+        <div class="task-title">Skapa en riktig presentation med AI</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span>Välj en presentation du behöver göra inom kort.</li>
+          <li><span class="task-step-num">2</span>Låt Copilot eller ChatGPT skapa dispositionen och slide-innehållet.</li>
+          <li><span class="task-step-num">3</span>Anpassa och använd presentationen på riktigt.</li>
+        </ul>
+        <div class="task-result">🎯 <strong>Mål:</strong> En presentation klar på under 30 minuter.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECKA 4 -->
+  <div class="module-section" id="mod-4">
+    <div class="container">
+      <div class="security-reminder">
+        <div class="security-reminder-icon">⚠️</div>
+        <div class="security-reminder-text"><strong>Extra viktigt den här veckan:</strong> Ladda bara upp dokument som är offentliga eller interna utan personuppgifter. Konfidentiella avtal, personalakter eller känsliga utredningar ska aldrig laddas upp i publika AI-tjänster. <a onclick="showModule(0)">Läs reglerna.</a></div>
+      </div>
+      <div class="mod-header">
+        <div class="mod-num-big">4</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">📅 Vecka 4</div>
+          <h2 class="mod-title">Sammanfatta och<br>analysera dokument</h2>
+          <p class="mod-desc">Sluta läsa 40-sidiga rapporter från pärm till pärm. Du lär dig använda NotebookLM och ChatGPT för att få ut det viktigaste på under fem minuter.</p>
+          <div class="mod-time">⏱ Ca 20 minuter</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">📄</div>
+        <div>
+          <div class="tip-label">Veckans insikt</div>
+          <div class="tip-text">"Du behöver inte läsa allt — du behöver förstå det viktiga. AI hjälper dig hitta signalen i bruset."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Steg för steg — gör detta nu</div>
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num-circle">1</div>
+          <div class="step-content">
+            <div class="step-title">Ladda upp ett dokument i ChatGPT</div>
+            <div class="step-body">I ChatGPT (Plus) eller Claude kan du ladda upp PDF:er och Word-dokument. Klicka på gem-ikonen → välj ditt dokument → skriv: <em>"Sammanfatta det viktigaste på 5 punkter."</em></div>
+            <div class="step-tool"><span>📎</span> PDF-uppladdning</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">2</div>
+          <div class="step-content">
+            <div class="step-title">Prova NotebookLM för djupare analys</div>
+            <div class="step-body">Gå till notebooklm.google.com (gratis). Ladda upp rapporter, protokoll eller artiklar. Ställ frågor som: <em>"Vad är de tre största riskerna som nämns?"</em> eller <em>"Vad säger dokumentet om budget?"</em></div>
+            <div class="step-tool"><span>🔗</span> notebooklm.google.com</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">3</div>
+          <div class="step-content">
+            <div class="step-title">Ställ specifika frågor</div>
+            <div class="step-body">Istället för "sammanfatta" — prova: <em>"Vad rekommenderar dokumentet att vi gör?"</em> eller <em>"Finns det några siffror eller mål jag bör känna till?"</em> Ju bättre fråga, desto bättre svar.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">4</div>
+          <div class="step-content">
+            <div class="step-title">Skapa ett executive summary</div>
+            <div class="step-body">Be AI: <em>"Skriv ett executive summary på max 150 ord som jag kan skicka till min chef."</em> Klart att skicka direkt.</div>
+            <div class="step-tool"><span>✅</span> 5 min istället för 1 timme</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-strip">
+        <div class="tools-strip-label">Verktyg den här veckan</div>
+        <div class="tool-pill"><span>📓</span> NotebookLM (gratis)</div>
+        <div class="tool-pill"><span>🤖</span> ChatGPT</div>
+        <div class="tool-pill"><span>🧠</span> Claude</div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-label">Veckans uppgift — skickas per mail</div>
+        <div class="task-title">Sammanfatta ett riktigt dokument</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span>Välj en rapport, utredning eller ett protokoll som du behöver läsa.</li>
+          <li><span class="task-step-num">2</span>Ladda upp i NotebookLM eller ChatGPT — ställ tre konkreta frågor.</li>
+          <li><span class="task-step-num">3</span>Skicka AI:ns sammanfattning till dig själv — jämför med att läsa hela.</li>
+        </ul>
+        <div class="task-result">⏱ <strong>Tidsmål:</strong> 5 minuter för att förstå ett 30-sidigt dokument.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECKA 5 -->
+  <div class="module-section" id="mod-5">
+    <div class="container">
+      <div class="security-reminder">
+        <div class="security-reminder-icon">⚠️</div>
+        <div class="security-reminder-text"><strong>Påminnelse:</strong> Klistra inte in inkomna mail med personuppgifter. Beskriv situationen med egna ord istället — du får lika bra hjälp utan att dela känslig information. <a onclick="showModule(0)">Läs reglerna.</a></div>
+      </div>
+      <div class="mod-header">
+        <div class="mod-num-big">5</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">📅 Vecka 5</div>
+          <h2 class="mod-title">Effektivare mail<br>och kommunikation</h2>
+          <p class="mod-desc">Du lär dig skriva svåra mail snabbare, anpassa tonen efter mottagaren och aldrig mer stirra på ett tomt dokument när du behöver kommunicera något knepigt.</p>
+          <div class="mod-time">⏱ Ca 20 minuter</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">📬</div>
+        <div>
+          <div class="tip-label">Veckans insikt</div>
+          <div class="tip-text">"Det svåraste är inte att skriva — det är att komma igång. AI löser det: ge den ett utkast, och du tar det därifrån."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Steg för steg — gör detta nu</div>
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num-circle">1</div>
+          <div class="step-content">
+            <div class="step-title">Beskriv situationen, inte texten</div>
+            <div class="step-body">Skriv till ChatGPT: <em>"Jag behöver maila min chef om att ett projekt försenas. Jag vill vara ärlig men konstruktiv. Föreslå ett utkast."</em> — Beskriv situationen, inte hur mailet ska se ut.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">2</div>
+          <div class="step-content">
+            <div class="step-title">Justera ton och längd</div>
+            <div class="step-body">Prova: <em>"Gör det kortare"</em> eller <em>"Gör det mer direkt"</em> eller <em>"Skriv det mer empatiskt"</em> — AI justerar direkt. Du hittar rätt ton snabbt.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">3</div>
+          <div class="step-content">
+            <div class="step-title">Prova Copilot direkt i Outlook</div>
+            <div class="step-body">I Microsoft Outlook med Copilot: Börja skriva ett mail → klicka på Copilot-ikonen → välj "Utkast med Copilot". Beskriv vad du vill säga så skriver den åt dig.</div>
+            <div class="step-tool"><span>💼</span> Microsoft 365 Copilot</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">4</div>
+          <div class="step-content">
+            <div class="step-title">Besvara ett svårt mail med AI</div>
+            <div class="step-body">Klistra in ett mail du fått och som är svårt att svara på. Skriv: <em>"Hjälp mig svara på det här på ett professionellt och tydligt sätt."</em></div>
+            <div class="step-tool"><span>✉️</span> Praktisk övning</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-strip">
+        <div class="tools-strip-label">Verktyg den här veckan</div>
+        <div class="tool-pill"><span>💼</span> Copilot i Outlook</div>
+        <div class="tool-pill"><span>🤖</span> ChatGPT</div>
+        <div class="tool-pill"><span>🧠</span> Claude</div>
+      </div>
+
+      <div class="task-box">
+        <div class="task-label">Veckans uppgift — skickas per mail</div>
+        <div class="task-title">Skriv ett svårt mail med AI-hjälp</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span>Välj ett mail du skjutit upp för att det är svårt eller känsligt.</li>
+          <li><span class="task-step-num">2</span>Beskriv situationen för ChatGPT — be om ett utkast.</li>
+          <li><span class="task-step-num">3</span>Anpassa, godkänn och skicka det riktiga mailet.</li>
+        </ul>
+        <div class="task-result">🎯 <strong>Mål:</strong> Skicka ett mail du annars hade skjutit upp i dagar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VECKA 6 -->
+  <div class="module-section" id="mod-6">
+    <div class="container">
+      <div class="security-reminder">
+        <div class="security-reminder-icon">⚠️</div>
+        <div class="security-reminder-text"><strong>Påminnelse:</strong> När du bygger din AI-rutin — bygg in dataskyddsvanan från start. Gör det till en reflex, inte en eftertanke. <a onclick="showModule(0)">Läs grundreglerna igen.</a></div>
+      </div>
+      <div class="mod-header">
+        <div class="mod-num-big">6</div>
+        <div class="mod-header-text">
+          <div class="mod-week-badge">📅 Vecka 6 · Sista veckan</div>
+          <h2 class="mod-title">Bygg din<br>egen AI-rutin</h2>
+          <p class="mod-desc">Du har nu provat alla de viktigaste verktygen. Nu handlar det om att sätta ihop en enkel rutin som faktiskt håller — och inte kräver att du tänker på det.</p>
+          <div class="mod-time">⏱ Ca 30 minuter</div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <div class="tip-icon">🔄</div>
+        <div>
+          <div class="tip-label">Veckans insikt</div>
+          <div class="tip-text">"Det är inte de bästa verktygen som gör skillnad — det är de man faktiskt använder varje dag. Hitta din rutin, håll den enkel."</div>
+        </div>
+      </div>
+
+      <div class="steps-title">Steg för steg — gör detta nu</div>
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num-circle">1</div>
+          <div class="step-content">
+            <div class="step-title">Gör ett personligt AI-val</div>
+            <div class="step-body">Vilka tre verktyg passade dig bäst under kursen? Välj ett för text, ett för möten och ett för dokument. Det är din verktygslåda — håll det enkelt.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">2</div>
+          <div class="step-content">
+            <div class="step-title">Bestäm tre dagliga AI-vanor</div>
+            <div class="step-body">Exempel: <em>Varje morgon — kolla inkorgen med Copilot. Varje möte — starta transkribering. Varje rapport — låt AI göra ett första utkast.</em> Välj dina tre och skriv ner dem.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">3</div>
+          <div class="step-content">
+            <div class="step-title">Testa hela kedjan på ett riktigt projekt</div>
+            <div class="step-body">Välj ett arbete du har den här veckan. Använd AI i varje steg: förbered med dokument-sammanfattning, genomför med transkribering, följ upp med AI-skrivet protokoll och mail.</div>
+            <div class="step-tool"><span>🔗</span> Alla sex veckornas verktyg</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num-circle">4</div>
+          <div class="step-content">
+            <div class="step-title">Dela med en kollega</div>
+            <div class="step-body">Det bästa sättet att befästa lärandet är att lära ut. Visa en kollega ett enda AI-trick du lärt dig. Det tar fem minuter och gör underverk för hur naturligt det känns.</div>
+            <div class="step-tool"><span>👥</span> Dela vidare</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools-strip">
+        <div class="tools-strip-label">Alla verktyg du lärt dig</div>
+        <div class="tool-pill"><span>🤖</span> ChatGPT</div>
+        <div class="tool-pill"><span>🧠</span> Claude</div>
+        <div class="tool-pill"><span>💼</span> Copilot</div>
+        <div class="tool-pill"><span>🌟</span> Gemini</div>
+        <div class="tool-pill"><span>📓</span> NotebookLM</div>
+        <div class="tool-pill"><span>🎙️</span> Otter.ai</div>
+      </div>
+
+      <div class="task-box" style="background: linear-gradient(135deg, #1a3a5c 0%, #0f2035 100%);">
+        <div class="task-label">Kursen är klar — men resan fortsätter</div>
+        <div class="task-title">Ditt personliga AI-löfte</div>
+        <ul class="task-steps">
+          <li><span class="task-step-num">1</span>Skriv ner tre konkreta saker du ska göra annorlunda nu när kursen är klar.</li>
+          <li><span class="task-step-num">2</span>Skicka dem till en kollega — be dem påminna dig om tre månader.</li>
+          <li><span class="task-step-num">3</span>Fortsätt experimentera. AI förändras snabbt — nyfikenhet är din bästa kompetens.</li>
+        </ul>
+        <div class="task-result">🎓 <strong>Grattis!</strong> Du har gjort hela kursen. Du är nu bättre rustad än de flesta chefer i Sverige.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">AI för <span>Chefer</span></div>
+      <p class="footer-tagline">En praktisk 6-veckorskurs för chefer som vill använda AI i sin vardag — utan teknikexamen.</p>
+    </div>
+    <div style="text-align:right;">
+      <button class="btn-primary" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">
+        Starta kursen →
+      </button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    AI för Chefer · <span style="color:var(--gold)">Uppdateras löpande</span> i takt med AI-utvecklingen
+  </div>
+</footer>
+
+<script>
+  let activeModule = 0;
+
+  function showModule(index) {
+    document.querySelectorAll('.module-section').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.mod-tab').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+    activeModule = index;
+    document.getElementById('modules').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function handleSignup() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!name || !email || !email.includes('@')) {
+      alert('Fyll i ditt namn och en giltig e-postadress.');
+      return;
+    }
+    document.getElementById('signupForm').classList.add('hide');
+    document.getElementById('signupSuccess').classList.add('show');
+    // Replace this with your actual email service integration (Mailchimp, Kit, etc.)
+    console.log('Signup:', { name, email });
+  }
+</script>
+</body>
+</html>
