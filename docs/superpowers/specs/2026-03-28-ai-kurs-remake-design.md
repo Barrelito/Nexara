@@ -16,11 +16,15 @@ Sidan är en gratis e-postkurs i 6 veckor riktad till första linjens chefer. Ne
 ## Kursstruktur
 
 ### Vecka 0 — Innan du börjar (uppdaterad)
-Behåll nuvarande struktur med GDPR/säkerhetsregler. Lägg till en viktig distinktion som saknas idag:
+Behåll nuvarande struktur med GDPR/säkerhetsregler. Notera: denna vecka har inget Situation/Insikt/Uppgift-format — den är en ren informationssida som läses före kursen börjar.
+
+**Tillägg:** Lägg till ett nytt avsnitt direkt efter den befintliga GDPR-listan, med rubriken "Gratis eller betald — vad är skillnaden?":
 
 - **Betalversioner** (ChatGPT Plus, Copilot via M365-licens) tränar inte på din data — du kan arbeta friare
 - **Gratisversionerna** kan använda din input för träning — var mer försiktig
 - Ge chefen ett konkret val, inte bara varningar
+
+Allt övrigt innehåll i Vecka 0 behålls oförändrat.
 
 ### Vecka 1 — Förbereda svåra samtal
 **Situation:** Du har ett samtal imorgon med en medarbetare som underpresterar. Du har gått igenom det hundra gånger i huvudet och vet ändå inte hur du ska börja.
@@ -40,16 +44,17 @@ Behåll nuvarande struktur med GDPR/säkerhetsregler. Lägg till en viktig disti
 **Insikt:** Mötesproblematiken är egentligen tre problem — förberedelse, genomförande, uppföljning. AI hjälper med alla tre.
 
 **Promptar:**
-- Före: `"Skapa en agenda för ett 45-minuters statusmöte. Vi har tre projekt igång och ska fatta ett prioriteringsbeslut."`
-- Under: Starta Teams-transkription (Microsoft 365)
-- Efter: `"Här är transkriptet. Sammanfatta: 1) Beslut som fattades 2) Åtgärdspunkter med ansvarig och deadline 3) Frågor som hänger kvar"`
+- Före mötet: `"Skapa en agenda för ett 45-minuters statusmöte. Vi har tre projekt igång och ska fatta ett prioriteringsbeslut."`
+- Efter mötet: `"Här är transkriptet. Sammanfatta: 1) Beslut som fattades 2) Åtgärdspunkter med ansvarig och deadline 3) Frågor som hänger kvar"`
 
-**Verktyg:** Microsoft Teams (transkription). Kräver Microsoft 365-licens.
+**Under mötet (UI-åtgärd, inte prompt):** Klicka på "..." i Teams → välj "Starta transkription". Kräver Microsoft 365-licens.
+
+*Notering: "Under mötet"-steget är en UI-instruktion och renderas separat från promptarna i HTML — som ett steg i steg-listan, inte som en kodblocksprompt.*
 
 **Uppgift:** Kör hela kedjan — agenda, transkription, protokoll — på ett riktigt möte.
 
 ### Vecka 3 — Rapportera uppåt snabbare
-**Situation:** Du ska skriva månadsrapport till din chef igen. Det är inte svårt — men det tar alltid en timme att komma igång och hitta rätt form.
+**Situation:** Månadsrapporten till din chef ska in på fredag. Du har all information i huvudet — men varje gång sitter du ändå där i en timme och stirrar på ett tomt dokument. Det känns som att det borde gå snabbare.
 
 **Insikt:** Rapporter till ledningen har ett oskrivet format — kort, strukturerat, fokus på avvikelser och beslutspunkter. AI känner det formatet.
 
@@ -90,6 +95,8 @@ Behåll nuvarande struktur med GDPR/säkerhetsregler. Lägg till en viktig disti
 **Insikt:** Tre enkla vanor slår tio verktyg du använder ibland. Men först: hitta dina egna AI-möjligheter med ett konkret ramverk.
 
 **Ramverk — AI-vänliga uppgifter (5 kriterier):**
+*Detta är ett nytt visuellt element i Vecka 6 — renderas som en numrerad lista med en kort ingress, placerad mellan Insikt och Promptar. Ersätter det nuvarande "steg-för-steg"-blocket i den befintliga Vecka 6.*
+
 En uppgift är AI-vänlig om den:
 1. Återkommer varje vecka eller månad
 2. Följer ungefär samma struktur varje gång
@@ -107,27 +114,46 @@ En uppgift är AI-vänlig om den:
 
 ## Förändringar i hero-sektionen
 
-Lägg till konkreta resultatmått för att stärka värdeerbjudandet:
-- "20–40% snabbare på text och rapporter"
-- "Möten som avslutas med ett klart protokoll på 5 minuter"
-- "Delegera tydligare — utan att behöva göra det själv ändå"
+Ersätt den befintliga löfteslistan i `.hero-promise`-blocket (nuvarande 6 punkter om vad man klarar efter kursen) med dessa fyra punkter som kombinerar konkreta resultatmått med situationsigenkänning:
+
+- "Förbereda svåra medarbetarsamtal på 10 minuter istället för en hel dag"
+- "Avsluta varje möte med ett klart protokoll — utan att du skrivit en rad"
+- "Skicka månadsrapporten på 15 minuter, inte en timme"
+- "Delegera tydligare — och slippa göra det själv ändå"
 
 ---
 
 ## Nexara-koppling
 
-- Logga/länk till nexara.se i navigeringen och footern
-- Vecka 6 avslutas med tydlig CTA till Nexara (ej påträngande — "vill du gå djupare")
-- Footer byter från "AI för Chefer · Uppdateras löpande" till att inkludera Nexara-varumärket
+**Nav:** Lägg till "Nexara.se" som en klickbar länk i navbaren till höger om loggan (eller ersätt nuvarande nav-logga "AI för Chefer" med "AI för Chefer — av Nexara" med länk).
+
+**Vecka 6 CTA:** Lägg till ett avslutande block efter task-boxen i Vecka 6 med texten:
+> "Vill du gå djupare med AI i din organisation? Det är vad vi gör på Nexara."
+> [Besök nexara.se →]
+
+**Footer:** Ersätt nuvarande text `AI för Chefer · Uppdateras löpande i takt med AI-utvecklingen` med:
+> "AI för Chefer är en gratiskurs från Nexara — vi hjälper organisationer använda AI på riktigt."
+> Länk: nexara.se
 
 ---
+
+## Implementeringsnoter
+
+**Allt innehåll i Vecka 1–6 ersätts i sin helhet.** Inget av de befintliga tabbarnas innehåll bevaras — det skrivs om från grunden enligt specen ovan.
+
+**Promptar renderas** som befintliga `step-card`-element med en distinkt stil för kodblockstext — behåll nuvarande `<em>`-styling för inline-promptar och använd `step-tool`-badges för verktygsreferenser.
+
+**Vecka 2** är den enda veckan med ett explicit "Under mötet"-steg som är en UI-instruktion (inte en prompt). Rendera det som ett vanligt `step-card` utan prompt-formatering.
+
+**Vecka 6** är den enda veckan med ett ramverksblock. Lägg det som ett nytt `tip-box`-element (eller liknande befintlig komponent) innan promptarna.
 
 ## Vad som inte ändras
 
 - Sidans övergripande design och layout
-- Vecka 0:s struktur (säkerhet/GDPR) — uppdateras men behåller formen
+- Vecka 0:s struktur (säkerhet/GDPR) — ett avsnitt läggs till, resten behålls
 - Formuläret och signup-flödet (infrastruktur kopplas i nästa fas)
 - Tab-navigationen per vecka
+- Kursöversikten i hero-sektionens högerkolumn (veckoraderna) — uppdateras med nya veckotitlar
 
 ---
 
