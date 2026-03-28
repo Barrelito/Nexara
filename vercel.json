@@ -1,3 +1,6 @@
 {
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/ai-kurs", "destination": "/ai-kurs.html" }
+  ]
 }
